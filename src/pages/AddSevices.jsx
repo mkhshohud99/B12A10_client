@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../provider/AuthProvider';
+import axios from 'axios';
 
 const AddSevices = () => {
+
+    const { user } = useContext(AuthContext);
 
 
     const handleSubmit = (e) => {
@@ -8,6 +12,28 @@ const AddSevices = () => {
         const form = e.target;
         const name = form.name.value;
         const category = form.category.value;
+        const price = parseInt(form.price.value);
+        const location = form.location.value;
+        const description = form.description.value;
+        const imageUrl = form.imageUrl.value;
+        const date = form.date.value;
+        const email = form.email.value;
+
+        const formData = {
+            name,
+            category,
+            price,
+            location,
+            description,
+            imageUrl,
+            date,
+            email,
+        }
+        // console.log(formData)
+        axios.post('http://localhost:5000/services', formData)
+        .then(res=>{
+            res? alert("Service Added" ) : alert("Something is error")
+        })
     }
 
 
@@ -104,7 +130,7 @@ const AddSevices = () => {
                             name="email"
                             type="email"
                             className="w-full p-3 border rounded-xl bg-gray-100"
-
+                            value={user?.email}
                             readOnly
                         />
                     </div>

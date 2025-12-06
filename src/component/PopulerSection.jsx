@@ -6,7 +6,7 @@ const PopulerSection = () => {
     const [services, setServices] = useState([]);
 
     useEffect(() => {
-        fetch('./services.json')
+        fetch('http://localhost:5000/services')
             .then(res => res.json())
             .then(data => setServices(data))
             .catch(err => alert(err))
@@ -22,22 +22,22 @@ const PopulerSection = () => {
                     {
                         services.slice(0,6).map(service =>
                             <div className="card bg-base-100 w-96 shadow-sm">
-                                <figure>
-                                    <img className='h-[300px] w-full object-cover'
-                                        src={service?.image}
-                                        alt="Pet Image" />
-                                </figure>
-                                <div className="card-body">
-                                    <h2 className="card-title">{service?.serviceName}</h2>
-                                    <div className='flex justify-between text-lg'>
-                                        <p>Price: <span className='font-bold'>${service?.price}</span></p>
-                                        <p className='text-end'>Ratings: {service?.rating}</p>
-                                    </div>
-                                    <div className="card-actions justify-end mt-5">
-                                        <Link to={`/details/${service?.serviceId}`}><button className="btn btn-primary">View Details</button></Link>
-                                    </div>
-                                </div>
-                            </div>
+                                                    <figure>
+                                                        <img className='h-[300px] w-full object-cover'
+                                                            src={service?.imageUrl}
+                                                            alt="Pet Image" />
+                                                    </figure>
+                                                    <div className="card-body">
+                                                        <h2 className="card-title">{service?.name}</h2>
+                                                        <div className='flex justify-between text-lg'>
+                                                            <p>Price: <span className='font-bold'>${service?.price}</span></p>
+                                                            <p className='text-end'>Category: {service?.category}</p>
+                                                        </div>
+                                                        <div className="card-actions justify-end mt-5">
+                                                            <Link to={`/details/${service?._id}`}><button className="btn btn-primary">View Details</button></Link>
+                                                        </div>
+                                                    </div>
+                                                </div>
                         )
                     }
                 </div>
